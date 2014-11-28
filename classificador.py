@@ -30,12 +30,12 @@ class Classifier:
         self.pca = decomposition.RandomizedPCA(n_components=n_eigenfaces, whiten=True)
         pca_features = self.pca.fit_transform(data.toarray() )
 
-        with plt.style.context('cev plot'):
-            # revisando que el numero de eigenfaces tenga sentido..
-            plt.figure(figsize=(8, 6))
-            plt.title('cev vs eigenFace')
-            plt.plot(self.pca.explained_variance_ratio_.cumsum())
-            #plt.show()
+        #with plt.style.context('cev_plot'):
+        # revisando que el numero de eigenfaces tenga sentido..
+        plt.figure(figsize=(8, 6))
+        plt.title('cev vs eigenFace')
+        plt.plot(self.pca.explained_variance_ratio_.cumsum())
+        #plt.show()
 
         self.classifier.fit(pca_features, labels)
 
