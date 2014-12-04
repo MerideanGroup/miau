@@ -11,27 +11,40 @@ def read_texts(path_to_json_file, label_symbol):
 	print(len(contents))
 	return contents, labels
 
-print("oferta, 0")
-print("trabajo, 1")
-print("finanza, 2")
-print("innovacion, 3")
+print("Estrategia_y_liderazgo, 0")
+print("Innovación_y_flexibilidad, 1")
+print("Integridad, 2")
+print("Oferta, 3")
+print("Responsabilidad_social, 4")
+print("Situación_financiera, 5")
+print("Trabajo, 6")
 
-textos_telefonia, labels_telefonia = read_texts('texts/celularis_content.json', 0)
-textos_trabajo, labels_trabajo = read_texts('texts/wikipedia_trabajo.json', 1)
-textos_finanzas, labels_finanzas = read_texts('texts/finanzas.json', 2)
-textos_innovacion, labels_innovacion = read_texts('texts/innovacion.json', 3)
+textos_Estrategia_y_liderazgo		, labels_Estrategia_y_liderazgo = read_texts('texts2/Estrategia_y_liderazgo.json', 0)
+textos_Innovación_y_flexibilidad	, labels_Innovación_y_flexibilidad = read_texts('texts2/Innovación_y_flexibilidad.json', 1)
+textos_Integridad					, labels_Integridad = read_texts('texts2/Integridad.json', 2)
+textos_Oferta						, labels_Oferta = read_texts('texts2/Oferta.json', 3)
+textos_Responsabilidad_social		, labels_Responsabilidad_social = read_texts('texts2/Responsabilidad_social.json', 4)
+textos_Situación_financiera			, labels_Situación_financiera = read_texts('texts2/Situación_financiera.json', 5)
+textos_Trabajo 						, labels_Trabajo = read_texts('texts2/Trabajo.json', 6)
 
 
-all_samples = textos_telefonia+ textos_trabajo + textos_finanzas + textos_innovacion
 
-class_weight= {	
-	 0: (len(all_samples) *1.0)/ len(textos_telefonia),
-	 1: (len(all_samples) *1.0)/ len(textos_trabajo),
-	 2: (len(all_samples) *1.0)/ len(textos_finanzas),
-	 3: (len(all_samples) *1.0)/ len(textos_innovacion)
+all_samples = textos_Estrategia_y_liderazgo + textos_Innovación_y_flexibilidad + textos_Integridad + textos_Oferta + textos_Responsabilidad_social + textos_Situación_financiera + textos_Trabajo
+
+all_labels = labels_Estrategia_y_liderazgo + labels_Innovación_y_flexibilidad + labels_Integridad + labels_Oferta + labels_Responsabilidad_social + labels_Situación_financiera + labels_Trabajo
+
+class_weight= {
+	 0: (len(all_samples) *1.0)/ len(textos_Estrategia_y_liderazgo),
+	 1: (len(all_samples) *1.0)/ len(textos_Innovación_y_flexibilidad),
+	 2: (len(all_samples) *1.0)/ len(textos_Integridad),
+	 3: (len(all_samples) *1.0)/ len(textos_Oferta),
+	 4: (len(all_samples) *1.0)/ len(textos_Responsabilidad_social),
+	 5: (len(all_samples) *1.0)/ len(textos_Situación_financiera),
+	 6: (len(all_samples) *1.0)/ len(textos_Trabajo)
 }
 
-c =Classifier(all_samples, labels_telefonia+ labels_trabajo + labels_finanzas + labels_innovacion, weights=class_weight)
+c =Classifier(all_samples, all_labels, weights=class_weight)
+
 c.classify("el pago del salario. el Trabajo es dificil, los horarios son largos, los derechos laborales demasiadas horas")
 c.classify("iPhone tiene muchas aplicaciones")
 c.classify("Android tiene muchas aplicaciones y la store")

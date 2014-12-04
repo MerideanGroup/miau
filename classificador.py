@@ -35,7 +35,7 @@ class Classifier:
         plt.figure(figsize=(8, 6))
         plt.title('cev vs eigenFace')
         plt.plot(self.pca.explained_variance_ratio_.cumsum())
-        #plt.show()
+        plt.show()
 
         self.classifier.fit(pca_features, labels)
 
