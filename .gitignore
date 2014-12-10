@@ -1,0 +1,13 @@
+*.pyc
+*.class
+target/*
+.idea/*
+*.iml
+/target/
+/.metadata/
+/.settings/
+/.project
+/.classpath
+*.orig
+*.log
+log/*

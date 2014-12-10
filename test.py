@@ -8,16 +8,8 @@ def read_texts(path_to_json_file, label_symbol):
 	contents = [item['content'] for item in json_file]
 	contents = contents#[:100]
 	labels = [label_symbol] * len(contents)
-	print(len(contents))
+	#print(len(contents))
 	return contents, labels
-
-print("Estrategia_y_liderazgo, 0")
-print("Innovación_y_flexibilidad, 1")
-print("Integridad, 2")
-print("Oferta, 3")
-print("Responsabilidad_social, 4")
-print("Situación_financiera, 5")
-print("Trabajo, 6")
 
 textos_Estrategia_y_liderazgo		, labels_Estrategia_y_liderazgo = read_texts('texts2/Estrategia_y_liderazgo.json', 0)
 textos_Innovación_y_flexibilidad	, labels_Innovación_y_flexibilidad = read_texts('texts2/Innovación_y_flexibilidad.json', 1)
@@ -43,16 +35,23 @@ class_weight= {
 	 6: (len(all_samples) *1.0)/ len(textos_Trabajo)
 }
 
-c =Classifier(all_samples, all_labels, weights=class_weight)
+print('Entrenando...\n')
 
-c.classify("el pago del salario. el Trabajo es dificil, los horarios son largos, los derechos laborales demasiadas horas")
-c.classify("iPhone tiene muchas aplicaciones")
-c.classify("Android tiene muchas aplicaciones y la store")
-c.classify("@Telefonica_Col ha movilizado en 2013 un un 0,74 del PIB del país. Lee más en su Informe de #Sostenibilidad http://t.co/NtQN2rgH5e #RSC")
-c.classify("Telefónica Movistar movilizó $5,2 billones en Colombia http://t.co/HTkI0re477")
-c.classify("Telefónica cierra la compra de la brasileña GVT y vende Telecom Italia http://t.co/Vo3zUKDdP5")
-c.classify("RT @Xtreme_techno: Presente en #ExpoCaribe Emprendimiento Corporativo @InnpulsaCol @Caribetic @Camarabaq @ClaroColombia http://t.co/0Up0enp?")
-c.classify("@ClaroTeAyuda Como adquiero otro decodificador HD, y aumento la velocidad de mi banda ancha, tengo 3play 5 MB, 40 C HD y Telefonia. Gracias")
-c.classify("@ClaroColombia Buenas tardes qué está pasando con la señal de Claro en los iPhone?")
-c.classify(" España comunicó esta semana a los sindicatos la aprobación de la subida salarial del 1% para 2014, acordada en el convenio")
-c.classify("Slim y  participan en una subasta de  en Argentina http://t.co/xzGAGzR9iR")
+c = Classifier(all_samples, all_labels, weights=class_weight)
+
+fr = codecs.open('data_test/Comentarios.json', 'r', 'utf-8')
+json_file = json.load(fr)
+fr.close()
+
+fw = open('gold_files/gold.txt', 'w')
+
+for label in json_file.keys():
+	texts = json_file[label]
+	for text in texts:
+		label_predicted = c.classify(text)
+		if label == label_predicted:
+			fw.write(label + '\t' + label_predicted + '\t' + '1' + '\t' + text + '\n')
+		else:
+			fw.write(label + '\t' + label_predicted + '\t' + '0' + '\t' + text + '\n')	
+
+fw.close()
