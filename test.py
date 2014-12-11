@@ -8,16 +8,16 @@ def read_texts(path_to_json_file, label_symbol):
 	contents = [item['content'] for item in json_file]
 	contents = contents#[:100]
 	labels = [label_symbol] * len(contents)
-	#print(len(contents))
+	print(path_to_json_file + '\t- ' + str(len(contents)))
 	return contents, labels
 
-textos_Estrategia_y_liderazgo		, labels_Estrategia_y_liderazgo = read_texts('texts2/Estrategia_y_liderazgo.json', 0)
-textos_Innovación_y_flexibilidad	, labels_Innovación_y_flexibilidad = read_texts('texts2/Innovación_y_flexibilidad.json', 1)
-textos_Integridad					, labels_Integridad = read_texts('texts2/Integridad.json', 2)
-textos_Oferta						, labels_Oferta = read_texts('texts2/Oferta.json', 3)
-textos_Responsabilidad_social		, labels_Responsabilidad_social = read_texts('texts2/Responsabilidad_social.json', 4)
-textos_Situación_financiera			, labels_Situación_financiera = read_texts('texts2/Situación_financiera.json', 5)
-textos_Trabajo 						, labels_Trabajo = read_texts('texts2/Trabajo.json', 6)
+textos_Estrategia_y_liderazgo		, labels_Estrategia_y_liderazgo = read_texts('texts3/Estrategia_y_liderazgo.json', 0)
+textos_Innovación_y_flexibilidad	, labels_Innovación_y_flexibilidad = read_texts('texts3/Innovación_y_flexibilidad.json', 1)
+textos_Integridad					, labels_Integridad = read_texts('texts3/Integridad.json', 2)
+textos_Oferta						, labels_Oferta = read_texts('texts3/Oferta.json', 3)
+textos_Responsabilidad_social		, labels_Responsabilidad_social = read_texts('texts3/Responsabilidad_social.json', 4)
+textos_Situación_financiera			, labels_Situación_financiera = read_texts('texts3/Situación_financiera.json', 5)
+textos_Trabajo 						, labels_Trabajo = read_texts('texts3/Trabajo.json', 6)
 
 
 
@@ -39,7 +39,7 @@ print('Entrenando...\n')
 
 c = Classifier(all_samples, all_labels, weights=class_weight)
 
-fr = codecs.open('data_test/Comentarios.json', 'r', 'utf-8')
+fr = codecs.open('data_test/Comentarios_prueba_7000.json', 'r', 'utf-8')
 json_file = json.load(fr)
 fr.close()
 
