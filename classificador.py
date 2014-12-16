@@ -48,7 +48,8 @@ class Classifier:
     def classify(self, text):
 
         #Diccionario con código-etiqueta
-        cod_label_dict = {0: "liderazgo", 1: "innovacion", 2: "integridad", 3: "oferta", 4: "ciudadania", 5: "finanzas", 6: "trabajo"}
+        #cod_label_dict = {0: "liderazgo", 1: "innovacion", 2: "integridad", 3: "oferta", 4: "ciudadania", 5: "finanzas", 6: "trabajo"}
+        cod_label_dict = {0: "innovacion", 1: "integridad", 2: "oferta", 3: "ciudadania", 4: "finanzas"}
 
         vector = self.get_vector(text)
         #print("[%s]\t: %s"%(cod_label_dict[(self.classifier.predict(vector))[0]], text))
